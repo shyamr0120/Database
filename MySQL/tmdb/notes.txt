@@ -1,0 +1,17 @@
+movie_table
+-----------
+id - 3
+title - 6
+release_date - 11
+language - 5
+popularity - decimal - 8
+revenue  - int - 12
+budget - int - 0
+status - 15
+vote_average - decimal - 18
+vote_count - int - 19
+runtime - int - 13
+
+
+SELECT DISTINCT key_id FROM mydb.keyword GROUP BY key_id HAVING count(key_id) < 5
+delete from keyword where key_id in (SELECT DISTINCT url FROM urltag GROUP BY url HAVING count(tag) < 5)

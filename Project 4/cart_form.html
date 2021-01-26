@@ -1,0 +1,59 @@
+<head>
+	<title>Shopping Cart</title>
+	<link rel="stylesheet" href="../css/site.css"/>
+	<script src = "script.js"></script>
+</head>
+
+<body>
+	<?php if($_SESSION["check"] == 0) { ?>
+	<h2 class = "title">myMovies Xpress!</h2>
+	<p>Welcome, <?php echo ($_SESSION["display"]); ?>, 
+	<a href="#" onclick = "confirmLogout()">(Logout)</a></p>
+	<?php } ?>
+	<p><?php $count = $_SESSION["count"];
+	echo $count;
+	?>
+	Movie(s) in Your Shopping Cart</p>
+	<?php
+	if($count == 0)
+	{
+	echo "Add Some Movies to Your Shopping Cart";
+	}
+	else
+	{
+	$apiKey = '20e46cd4';
+    ?><br>
+	<table class ="cart">
+	      <tr>
+		        <th>Movie Image</th>
+		        <th>Movie Title</th>
+			<?php if($_SESSION["check"] == 0) { ?>
+		        <th>Remove Movie</th>
+			<?php } ?>
+	      </tr>
+	<?php for($i=0; $i<$count; $i++)
+	 {
+	      $mID = trim($main_arr[$i]); /*To remove special characters*/
+	      $movie = file_get_contents("http://www.omdbapi.com/?apikey=$apiKey&i=$mID&type=movie&r=json");
+	      $array = json_decode($movie, true);
+	      $poster = ($array["Poster"]);
+	      $title = $array["Title"];
+	      $year = $array["Year"];
+	      $link = "https://www.imdb.com/title/$mID/";
+	      $name = "" . $title . " (" . $year . ")";
+	?>
+	<tr>
+		<td><img src = "<?php echo $poster ?>" height = "100px" alt = "Image Not Available"></td>
+		<td><a href = "<?php echo $link ?>" target="_blank"><?php echo $name ?></a></td>
+		<?php if($_SESSION["check"] == 0) { ?>
+		<td><a href="#" onclick = "confirmRemove('<?php echo $title ?>', '<?php echo $mID ?>')">X</a></td>
+		<?php } ?>
+	</tr>
+		<?php } ?>   
+	<?php } ?>
+	</table><br><br>
+	<?php if($_SESSION["check"] == 0) { ?>
+	<button type = "button" onclick = "window.location.href = 'search.php'">Add Movie</button>&ensp;
+	<button type = "button" onclick = "confirmCheckout()">Checkout</button>
+	<?php } ?>
+</body>

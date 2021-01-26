@@ -1,0 +1,30 @@
+<head>
+	<title>Login Page</title>
+	<link rel = "stylesheet" href = "../css/site.css"/>
+	<script src = "script.js"></script>
+</head>
+
+<body>
+	<h2 class = "title">myMovies Xpress</h2>
+	<p>Enter your username and password to start using myMovies Xpress.</p><br>
+
+	<form action="./logon.php" method = "post">
+		Username:<br><br>
+		<input type = "text" name = "username"><br><br>
+		Password:<br><br>
+		<input type = "password" name = "password"><br><br>
+		<input type = "submit" value = "Submit"><ensp>
+		<input type = "reset" value = "Clear"><br><br>
+		<?php
+		if($message != null)
+		{
+			 echo "$message";
+		}
+		?>
+		<br><br>
+					               
+	</form>
+</body>
+<footer>
+	<a href = "..">ePortfolio</a>
+</footer>

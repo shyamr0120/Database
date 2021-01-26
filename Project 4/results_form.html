@@ -1,0 +1,43 @@
+<head>
+	<title>Search Results</title>
+	<link rel="stylesheet" href="../css/site.css"/>
+	<script src = "script.js"></script>
+</head>
+
+<body>
+	<h2 class = "title">MyMovies Xpress!</h2>
+	<p>Welcome, <?php echo ($_SESSION["display"]); ?>,
+	<a href="#" onclick = "confirmLogout()">(Logout)</a></p>
+	<p><?php $count = $_SESSION["count2"];
+	echo $count;
+	?>
+	Movie(s) Found</p>
+	<?php
+	if($count >= 1)
+	{
+	?>
+	<table class = "cart">
+	      <tr>
+		        <th>Movie Image</th>
+		        <th>Movie Titile</th>
+		        <th>Add Movie</th>
+	      </tr>
+	<?php for($i=0; $i<$count; $i++)
+	 {
+	      $imdbID = trim($array[$i]["imdbID"]); /*To remove special characters*/
+	      $poster = ($array[$i]["Poster"]);
+	      $title = $array[$i]["Title"];
+	      $year = $array[$i]["Year"];
+	      $link = "https://www.imdb.com/title/$imdbID/";
+	      $name = "" . $title . " (" . $year . ")";
+	?>
+	<tr>
+		<td><img src = "<?php echo $poster ?>" height = "100px" alt = "Image Not Available"></td>
+		<td><a href = "<?php echo $link ?>" target="_blank"><?php echo $name ?></a></td>
+	        <td><a href="#" onclick = "addMovie('<?php echo $imdbID ?>')">+</a></td>
+	</tr>
+		<?php } ?>   
+	<?php } ?>
+	<table><br><br>
+	<button type = "button" onclick = "window.location.href = 'index.php'">Cancel</button><br><br>
+</body>
